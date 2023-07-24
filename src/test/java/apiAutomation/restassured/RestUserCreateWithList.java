@@ -1,15 +1,14 @@
-//package apiAutomation.restassured;
-//
-//import com.google.gson.Gson;
-//import io.restassured.RestAssured;
-//import io.restassured.path.json.JsonPath;
-//import io.restassured.response.Response;
-//import io.restassured.specification.RequestSpecification;
-//import jdk.nashorn.internal.objects.Global;
-//import org.testng.annotations.BeforeMethod;
-//import org.testng.annotations.Test;
-//
-//import static org.hamcrest.MatcherAssert.assertThat;
+package apiAutomation.restassured;
+
+import com.google.gson.Gson;
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 //
 //public class RestUserCreateWithList extends Global {
 //    private RequestSpecification httpRequest;

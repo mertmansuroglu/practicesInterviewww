@@ -9,6 +9,7 @@ public class Function {
     int[] arr={7,4,6,9,10};
         findSmallestLargest(arr);
         findSmallestLargest2(arr);
+        findSmallestLargestStreams(arr);
     }
 
     public static void findSmallestLargest(int[] arr)
@@ -31,5 +32,20 @@ public class Function {
         }
         System.out.println("smallest is "+small);;
         System.out.println("largest is "+largest);;
+    }
+    public static void findSmallestLargestStreams(int[] arr)
+    {
+        // Find the largest element using streams
+        int largest = Arrays.stream(arr)
+                .max()
+                .orElse(Integer.MIN_VALUE);
+
+        // Find the smallest element using streams
+        int smallest = Arrays.stream(arr)
+                .min()
+                .orElse(Integer.MAX_VALUE);
+
+        System.out.println("Largest element: " + largest);
+        System.out.println("Smallest element: " + smallest);
     }
 }

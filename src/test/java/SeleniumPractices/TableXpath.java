@@ -23,7 +23,7 @@ public class TableXpath {
         WebElement scrollPart=driver.findElement(By.xpath("//table[@class='wikitable sortable jquery-tablesorter']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",scrollPart);
         WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.visibilityOf(scrollPart)).click();
+        wait.until(ExpectedConditions.visibilityOf(scrollPart)).click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         Thread.sleep(3000);
 

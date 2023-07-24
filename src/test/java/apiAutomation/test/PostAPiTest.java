@@ -6,6 +6,7 @@ import apiAutomation.client.ClosabHttpClienttt;
 import apiAutomation.client.JavaNetHttpClıent;
 import apiAutomation.client.UrlConnectionClient;
 import apiAutomation.datas.Users;
+import apiAutomation.restassured.Requests;
 import apiAutomation.util.TestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -13,16 +14,19 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.asynchttpclient.Response;
 import org.json.JSONObject;
+import org.models.RegisteredUserResponse;
+import org.models.UserRegisterRequest;
+import org.models.UserRegisterResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+
+import static apiAutomation.restassured.SpecBuilder.getConfigprop;
 
 public class PostAPiTest extends TestBase {
 
@@ -46,21 +50,6 @@ public class PostAPiTest extends TestBase {
 
     }
 
-    @Test
-    public void postApiTestAsynch() throws IOException, ParseException, InterruptedException, ExecutionException {
-        AsynchHttpClient restClient = new AsynchHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
-        HashMap<String, String> headerMap = new HashMap<>();
-        headerMap.put("Content-Type", "application/json");
-        Users users = new Users("mert2", "engineer2", null);//expected users object
-        //I need to convert the object to json object-- object to json file -- serialization
-        String jsonString = mapper.writeValueAsString(users);
-        System.out.println(jsonString);
-        responseAs = restClient.post(URI, jsonString, headerMap);
-        int statusCode = responseAs.getStatusCode();
-        System.out.println("status code is:" + statusCode);
-        Assert.assertEquals(statusCode, 201, "Status code is not 201");
-    }
 
     @Test
     public void postApiTestNetClient() throws IOException, ParseException, InterruptedException {
@@ -84,45 +73,59 @@ public class PostAPiTest extends TestBase {
 
     @Test
     public void postApiTestUrlConnection() throws IOException, ParseException, InterruptedException {
+
         UrlConnectionClient restClient = new UrlConnectionClient();
         String jsonString = "{\"name\": \"mert\", \"job\": \"Programmer\"}";
         response = restClient.post(URI, jsonString, "Content-Type", "application/json");
     }
+    static int id;
+    UserRegisterRequest userRegisterRequest= new UserRegisterRequest();
 
-    @Test
-    public void postApiTest() throws IOException, ParseException {
-        ClosabHttpClienttt restClient = new ClosabHttpClienttt();
-        HashMap<String, String> headerMap = new HashMap<>();
-        headerMap.put("Content-Type", "application/json");
-        //i need to convert pojo to json! serialization -- marsheiling
-
-        //I need jackson api!! jackson is converting pojo to json!! or json to object
-        ObjectMapper mapper = new ObjectMapper();
-        Users users = new Users("mert", "engineer", null);//expected users object
-        //I need to convert the object to json object-- object to json file -- serialization
-        mapper.writeValue(new File("C:\\Users\\Mert.Mansuroglu\\Desktop\\InterviewJavaMavenn\\src\\main\\java\\apiAutomation\\datas\\Users.json"), users);
-        String jsonString = mapper.writeValueAsString(users);
-        System.out.println(jsonString);
-        closeableHttpResponse = restClient.post(URI, jsonString, headerMap);
-        int statusCode = closeableHttpResponse.getCode();
-        System.out.println("status code is:" + statusCode);
-        Assert.assertEquals(statusCode, 201, "Status code is not 201");
-
-        //2.jsonString--- burda sonu aldik geri json objecte te cevirdimk deserailzie ettik!!
-        String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");
-        JSONObject responseJson = new JSONObject(responseString);
-        String job = TestUtil.getValueByJsPath(responseJson, "job");
-        System.out.println(job);
-
-        //json to java object --- deserialization
-        Users userObj = mapper.readValue(responseString, Users.class);//actual users object
-        //actualda id mevcut mesela onun icin json ignore kullanmaliyiz cunku requestte ihtiyacimiz yok buna
-        System.out.println(users.getName().equals(userObj.getName()));
-        System.out.println(users.getJob().equals(userObj.getJob()));
-
-        System.out.println(userObj.getId());
-        System.out.println(userObj.getCreatedAt());
+    @Test(priority =0)
+    public void registerUserTest()
+    {
+        userRegisterRequest.setEmail("janet.weaver@reqres.in");
+        userRegisterRequest.setPassword("pistol");
+        io.restassured.response.Response response= Requests.Post(getConfigprop("registerUserPath"),userRegisterRequest);
+        Assert.assertEquals(response.statusCode(),200);
+        UserRegisterResponse userRegisterResponse=response.jsonPath().getObject("$",UserRegisterResponse.class);
+        id= userRegisterResponse.getId();
     }
+    @Test(priority = 1)
+    public void getRegisteredUserTest()
+    {
+        io.restassured.response.Response response= Requests.Get(getConfigprop("getUser")+id);
+        Assert.assertEquals(response.statusCode(),200);
+        RegisteredUserResponse registeredUserResponse=response.jsonPath().getObject("data",RegisteredUserResponse.class);
+        Assert.assertEquals(registeredUserResponse.getEmail(),userRegisterRequest.getEmail());
+        Assert.assertEquals(registeredUserResponse.getId(),2);
+    }
+    @Test
+    public void getApTestUrlConnection() throws IOException, ParseException, InterruptedException {
+        testBase = new TestBase();
+        baseUrl = prop.getProperty("URL2");
+        apiUrl = prop.getProperty("apiURL2");
+        URI = baseUrl + apiUrl;
+        UrlConnectionClient restClient = new UrlConnectionClient();
+        response = restClient.getWithHeader(URI, "Content-Type", "application/json");
+        //asagidaki inputstream i json objecte donusturur!!!
+        BufferedReader bR = new BufferedReader(new InputStreamReader(response));
+        String line = "";
+        StringBuilder responseStrBuilder = new StringBuilder();
+        while ((line = bR.readLine()) != null) {
 
+            responseStrBuilder.append(line);
+        }
+        response.close();
+
+        JSONObject result = new JSONObject(responseStrBuilder.toString());
+        //simdi artik bu result bizikm jsonobjectimiz biz bunu kullanip jpath cekeriz
+        String total = TestUtil.getValueByJsPath(result, "/total");
+        String lastname = TestUtil.getValueByJsPath(result, "data[1]/last_name");
+        Assert.assertEquals(total, "12");
+        Assert.assertEquals(lastname, "Weaver");
+        System.out.println(lastname);
+        //a-status code
+    }
 
 }
