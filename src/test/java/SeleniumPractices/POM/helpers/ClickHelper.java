@@ -1,9 +1,9 @@
 package SeleniumPractices.POM.helpers;
 
+import SeleniumPractices.POM.pages.HomePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import pages.HomePage;
 
 public class ClickHelper extends WaitHelper {
 

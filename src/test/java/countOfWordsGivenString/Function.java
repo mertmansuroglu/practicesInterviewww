@@ -3,6 +3,7 @@ package countOfWordsGivenString;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Function {
@@ -30,5 +31,6 @@ public class Function {
            }
            return map.get(word);
        }
+
        }
 

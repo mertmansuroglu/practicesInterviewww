@@ -30,4 +30,6 @@ public class NumberOfDigitsSUm {
         int count = 0;
         System.out.println(String.valueOf(num).length());
     }
+
+
 }

@@ -1,6 +1,7 @@
 package SeleniumPractices.POM.helpers;
 
-import base.BasePage;
+
+import SeleniumPractices.POM.base.BasePage;
 
 public class SwitchHelper extends BasePage {
 

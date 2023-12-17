@@ -1,6 +1,7 @@
 package SeleniumPractices.POM.helpers;
 
-import base.BasePage;
+
+import SeleniumPractices.POM.base.BasePage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;

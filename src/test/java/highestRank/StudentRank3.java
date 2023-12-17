@@ -32,12 +32,12 @@ public class StudentRank3 {
         return lowestRank;
 
     }
-
-    public static void main(String[] args) {
-        String[] students = {"Alex", "Chris", "Sam"};
-        int[] ranks = {3, 2, 1};
-        StudentRank studentRank = new StudentRank(students, ranks);
-        System.out.println("highest" + studentRank.highestRank());
-        System.out.println("lowest" + studentRank.lowestRank());
-    }
+//
+//    public static void main(String[] args) {
+//        String[] students = {"Alex", "Chris", "Sam"};
+//        int[] ranks = {3, 2, 1};
+//        StudentRank studentRank = new StudentRank(students, ranks);
+//        System.out.println("highest" + studentRank.highestRank());
+//        System.out.println("lowest" + studentRank.lowestRank());
+//    }
 }

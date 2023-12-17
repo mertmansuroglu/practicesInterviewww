@@ -1,10 +1,11 @@
 package SeleniumPractices.POM.base;
 
-import browsers.BrowserSelectable;
-import browsers.Chrome;
-import browsers.Edge;
-import browsers.Firefox;
-import enums.Browsers;
+
+import SeleniumPractices.POM.browsers.BrowserSelectable;
+import SeleniumPractices.POM.browsers.Chrome;
+import SeleniumPractices.POM.browsers.Edge;
+import SeleniumPractices.POM.browsers.Firefox;
+import SeleniumPractices.POM.enums.Browsers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;

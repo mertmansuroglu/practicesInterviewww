@@ -1,8 +1,8 @@
 package SeleniumPractices.POM.pages;
 
-import helpers.ClickHelper;
-import helpers.SelectHelper;
-import helpers.SwitchHelper;
+import SeleniumPractices.POM.helpers.ClickHelper;
+import SeleniumPractices.POM.helpers.SelectHelper;
+import SeleniumPractices.POM.helpers.SwitchHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
@@ -56,10 +56,7 @@ public class ProductListPage extends Page {
                     : priceString2;
             priceString2 = priceString2.replaceAll(",", ".");
             var price2 = Float.parseFloat(priceString2);
-            var message = String.format("""
-                    The product list should've sorted high to low,
-                    earlier product price is %s,
-                    following product price is %s""", priceString1, priceString2);
+            var message = "";
             assertTrue(price1 >= price2, message);
         }
         log.info("High To Low orders is correct");

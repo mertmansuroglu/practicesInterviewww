@@ -1,6 +1,7 @@
 package SeleniumPractices.POM.helpers;
 
-import base.BasePage;
+
+import SeleniumPractices.POM.base.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;

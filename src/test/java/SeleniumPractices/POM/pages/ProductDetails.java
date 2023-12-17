@@ -8,7 +8,9 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static helpers.ElementHelper.isElementPresent;
+import static SeleniumPractices.POM.helpers.ElementHelper.isElementPresent;
+import static org.junit.Assert.assertTrue;
+
 
 public class ProductDetails extends Page {
     private final static Logger log = LogManager.getLogger(ProductDetails.class);

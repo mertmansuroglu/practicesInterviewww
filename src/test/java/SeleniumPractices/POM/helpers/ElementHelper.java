@@ -1,11 +1,12 @@
 package SeleniumPractices.POM.helpers;
 
-import base.BasePage;
+
+import SeleniumPractices.POM.base.BasePage;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-import static base.BasePage.getWaitTime;
+
 
 public class ElementHelper extends BasePage {
 

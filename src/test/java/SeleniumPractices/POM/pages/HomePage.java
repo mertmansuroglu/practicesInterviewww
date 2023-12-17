@@ -1,13 +1,15 @@
 package SeleniumPractices.POM.pages;
 
-import helpers.ClickHelper;
+
+import SeleniumPractices.POM.helpers.ClickHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static helpers.ElementHelper.isElementPresent;
+import static SeleniumPractices.POM.helpers.ElementHelper.isElementPresent;
+
 
 public class HomePage extends Page {
     private final static Logger log = LogManager.getLogger(HomePage.class);
