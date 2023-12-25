@@ -3,7 +3,10 @@ package countCharacterOccurencesInString;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Function {
 
@@ -11,6 +14,12 @@ public class Function {
     public void countWord() {
         String str = "I am learninlg java";
         Assert.assertEquals((checkChar2(str,"l")),2);
+    }
+
+    public static void main(String[] args) {
+        String str = "javaharten";
+        System.out.println(checkChar3(str,"a"));
+
     }
 
     public int checkChar(String str,String chr){
@@ -29,6 +38,13 @@ public class Function {
 }
     public int checkChar2(String str,String chr){
       return (str.length())-(str.replaceAll(chr,"").length());
+
+    }
+
+      public static int checkChar3(String str,String chr){
+          List<String> list= Arrays.asList(str.split(""));
+          return Collections.frequency(list,chr);
+
 
     }
 }

@@ -33,23 +33,6 @@ public class Requests {
                 response();
 
     }
-////
-//public static RequestSpecification getRequestSpec() {
-//    RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
-//    requestSpecBuilder.setBaseUri("LoginProps.API_BASE_URI.value");
-//    requestSpecBuilder.setContentType(ContentType.JSON);
-//    requestSpecBuilder.addHeader("Authorization", "Bearer " + token);
-//    requestSpecBuilder.log(LogDetail.ALL);
-//    return requestSpecBuilder.build();
-//}
-//
-//public static ResponseSpecification getResponseSpec() {
-//    return new ResponseSpecBuilder().
-//            expectContentType(ContentType.JSON).
-//            log(LogDetail.ALL).
-//            build();
-//}
-
 
 
     public static Response PostWithSpecs(String path, Object payload, RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {

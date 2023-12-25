@@ -1,14 +1,5 @@
-package SeleniumPractices;
+package apiAutomation.test;
 
-import org.codehaus.groovy.transform.SourceURIASTTransformation;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,19 +7,9 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.lang.reflect.Array;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import io.restassured.RestAssured;
-import org.testng.annotations.Test;
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class TableXpath {
+public class Assertionnns {
 
 
     @Test
