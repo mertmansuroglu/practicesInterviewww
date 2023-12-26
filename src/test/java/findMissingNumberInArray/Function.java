@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.stream.Stream;
 
 public class Function {
+    // TODO: 12/25/2023 FINISHED!!!!
     public static void main(String[] args) {
         //iki cesit cozum mumkun
         //cikarip ve cikarmadan toplami cikar

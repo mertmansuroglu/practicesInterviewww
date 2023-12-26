@@ -3,9 +3,22 @@ package apiAutomation.parseJsons;
 import apiAutomation.parseJsons.pojo.Batter;
 import apiAutomation.parseJsons.pojo.Donut;
 import apiAutomation.parseJsons.pojo.Topping;
+import apiAutomation.parseJsons.pojoResource.Root;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.Objects;
 
 public class WithJacksonPojo {
     public static void main(String[] args) {
@@ -45,6 +58,47 @@ public class WithJacksonPojo {
         }
 
 
+    }
+
+    @Test
+    public void testGet()
+    {
+        String jsonStringForDeserialize= RestAssured.given(getRequestSpec()).when().get("api/users/2").then().spec(getResponseSpec()).extract().response().asString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Root  root = null;
+        try {
+              root = objectMapper.readValue(jsonStringForDeserialize, Root.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println( root.getSupport().text);
+        System.out.println( root.getData().last_name);
+    }
+
+
+    @Test
+    public void testPost()
+    {
+        apiAutomation.parseJsons.registerUser.Root root = new  apiAutomation.parseJsons.registerUser.Root("mert","sok",null,null);
+        Gson gson = new Gson();
+        String s=  gson.toJson(root);
+        String jsonStringForSerialize =RestAssured.given(getRequestSpec()).body(s).when().post("/api/users").then().spec(getResponseSpec()).extract().response().asString();
+        apiAutomation.parseJsons.registerUser.Root responses = gson.fromJson(jsonStringForSerialize,  apiAutomation.parseJsons.registerUser.Root.class);
+        Assert.assertTrue(Objects.equals(responses.getJob(),"sok"));
+    }
+
+    public static RequestSpecification getRequestSpec() {
+        RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
+        requestSpecBuilder.setBaseUri("https://reqres.in/");
+        requestSpecBuilder.setContentType(ContentType.JSON);
+        requestSpecBuilder.log(LogDetail.ALL);
+        return requestSpecBuilder.build();
+    }
+    public static ResponseSpecification getResponseSpec() {
+        return new ResponseSpecBuilder().
+                expectContentType(ContentType.JSON).
+                log(LogDetail.ALL).
+                build();
     }
 }
 

@@ -10,6 +10,14 @@ public class Function {
             newArr[b]+=Character.valueOf(arr[i]);
             b++;
         }
-        System.out.println(Integer.parseInt(String.valueOf(newArr)));
+//        System.out.println(Integer.parseInt(String.valueOf(newArr)));
+        System.out.println(numb(a));
+    }
+
+    public static int numb(int a)
+    {
+        String sip=   Integer.toString(a);
+        return Integer.parseInt(new StringBuilder(sip).reverse().toString());
+
     }
 }

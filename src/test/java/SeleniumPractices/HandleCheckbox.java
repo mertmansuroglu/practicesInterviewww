@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class HandleCheckbox {
     public static void main(String[] args) {
         // Set the path to the chromedriver executable
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
 
         // Initialize ChromeDriver
         WebDriver driver = new ChromeDriver();

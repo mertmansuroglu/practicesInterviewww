@@ -17,7 +17,11 @@ public class TestTable {
         Assert.assertTrue(checkTable("Joe Root"));
         driver.quit();
     }
+    public static By surveyRespondStatus(String status) {
+        return By.xpath("/parent::mat-header-row/following-sibling::mat-row[1]//div[@ng-reflect-ng-switch='" + status + "']");
 
+    }
+    public static By createQuestCreateBtnDisabled = By.xpath("//button[@type='submit' and @disabled = 'true']");
     public boolean checkTable(String text)
     {   boolean isValid=false;
         try {

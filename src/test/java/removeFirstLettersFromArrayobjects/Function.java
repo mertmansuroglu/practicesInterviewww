@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Function {
+    // TODO: 12/25/2023  FINISHED!!!!
     public static void main(String[] args) {
         String[] stringArray = {"Apple", "Banana", "Orange", "Grape"};
 //        removeFirst(stringArray);

@@ -1,10 +1,11 @@
 package reverseEachWords;
 
 public class Function {
-
+    // TODO: 12/25/2023 partially FINISHED
     public static void main(String[] args) {
         String str= "how are you";
-        reverseWords(str);
+        System.out.println(   reverseWordss(str));
+     ;
 
     }
     public static void reverseWords(String str){
@@ -19,5 +20,18 @@ public class Function {
             newS+=" ";
         }
         System.out.println(newS);
+    }
+
+    public static String reverseWordss(String str){
+        String newS= "";
+        String[] arr=   str.split(" ");
+        for(int i=0;i<arr.length;i++)
+        {
+            String rev= new StringBuilder(arr[i]).reverse().toString();
+            newS+=" "+rev;
+        }
+        return newS.trim();
+
+
     }
 }

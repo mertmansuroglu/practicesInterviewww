@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Function {
-
+    // TODO: 12/25/2023 FINISHED!!!!
     public static void main(String[] args) {
     int[] arr={7,4,6,9,10};
         findSmallestLargest(arr);

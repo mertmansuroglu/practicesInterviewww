@@ -5,7 +5,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Function {
-
+    // TODO: 12/25/2023 pARTIALLY FINISHED!!!!
     public static void main(String[] args) {
         int[] arr = {1,2,2,5,6,4,5,3,5,6};
         removeDuplicatedElementsWithSet3(arr);
@@ -43,6 +43,22 @@ public class Function {
         {
             System.out.println(neww[i]);
         }
+    }
+    public static int[] getUniqueArray(int[] array) {
+        Set<Integer> set = new HashSet<>();
+        for (int value : array) {
+            set.add(value);
+        }
+        // Set'ten alınan benzersiz elemanları içeren bir Integer dizisi
+        Integer[] uniqueArray = set.toArray(new Integer[0]);
+
+        // Integer dizisini int dizisine dönüştürme
+        int[] result = new int[uniqueArray.length];
+        for (int i = 0; i < uniqueArray.length; i++) {
+            result[i] = uniqueArray[i];
+        }
+
+        return result;
     }
 
     public static void removeDuplicatedElementsWithSet3( int[] arr) {

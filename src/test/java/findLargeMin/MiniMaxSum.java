@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MiniMaxSum {
-
+    // TODO: 12/25/2023 FINISHED!!!!
     public static void miniMaxSum(List<Integer> arr) {
         long min = 0;
         long max = 0;

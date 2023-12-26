@@ -1,9 +1,18 @@
 package apiAutomation.parseJsons;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import apiAutomation.parseJsons.pojoResource.Root;
+import com.google.gson.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.Objects;
 
 public class WithGsonNoPojo {
     public static void main(String[] args) {
@@ -41,6 +50,7 @@ public class WithGsonNoPojo {
         System.out.println("Name: " + jsonObject.get("name").getAsString());
         System.out.println("PPU: " + jsonObject.get("ppu").getAsDouble());
 
+
         // Accessing nested structures
         System.out.println("\nBatters:");
         JsonArray batterArray = jsonObject.getAsJsonObject("batters").getAsJsonArray("batter");
@@ -65,4 +75,54 @@ public class WithGsonNoPojo {
         String modifiedJsonString = jsonObject.toString();
         System.out.println("\nModified JSON String: " + modifiedJsonString);
     }
+    @Test
+    public void testGet()
+    {
+        String jsonStringForDeserialize= RestAssured.given(getRequestSpec()).when().get("api/users/2").then().spec(getResponseSpec()).extract().response().asString();
+        //deserialize
+        JsonObject jsonObject = JsonParser.parseString(jsonStringForDeserialize).getAsJsonObject();
+        System.out.println( jsonObject.getAsJsonObject("support").get("url").getAsString());
+        System.out.println( jsonObject.getAsJsonObject("data").get("id").getAsString());
+    }
+
+    @Test
+    public void testGet2()
+    {
+        String jsonStringForDeserialize= RestAssured.given(getRequestSpec()).when().get("api/users?page=2").then().spec(getResponseSpec()).extract().response().asString();
+        Gson gson = new Gson();
+        //deserialize
+        JsonObject jsonObject = JsonParser.parseString(jsonStringForDeserialize).getAsJsonObject();
+        Assert.assertTrue(Objects.equals( jsonObject.getAsJsonArray("data").get(0).getAsJsonObject().get("last_name").getAsString(),"Lawson"));
+    }
+
+    @Test
+    public void testPost()
+    {
+        String jsonUserReegister="{\n" +
+                "    \"name\": \"mor\",\n" +
+                "    \"job\": \"leaderrr\"\n" +
+                "}";
+        Gson gson = new Gson();
+        // Parse JSON string to JsonObject
+        JsonObject jsonObject = JsonParser.parseString(jsonUserReegister).getAsJsonObject();
+        jsonObject.addProperty("job", "5");
+        String jsonStringForSerialize =RestAssured.given(getRequestSpec()).body(jsonObject.toString()).when().post("/api/users").then().spec(getResponseSpec()).extract().response().asString();
+        JsonObject jsonObject2 = JsonParser.parseString(jsonStringForSerialize).getAsJsonObject();
+        Assert.assertTrue(Objects.equals(jsonObject2.getAsJsonObject().get("job").getAsString(),"5"));
+    }
+
+    public static RequestSpecification getRequestSpec() {
+        RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
+        requestSpecBuilder.setBaseUri("https://reqres.in/");
+        requestSpecBuilder.setContentType(ContentType.JSON);
+        requestSpecBuilder.log(LogDetail.ALL);
+        return requestSpecBuilder.build();
+    }
+    public static ResponseSpecification getResponseSpec() {
+        return new ResponseSpecBuilder().
+                expectContentType(ContentType.JSON).
+                log(LogDetail.ALL).
+                build();
+    }
+
 }

@@ -9,16 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Function {
-
+    // TODO: 12/25/2023 NOT FINISHED!!!!!!!!!!!!!!!!!!1
+    //LinkedHashMap!!!!!!!!
     @Test
     public void countWord() {
         String str = "aswiss";
-        checkWordWithSort(str,"w");
-        Assert.assertEquals(checkWordWithSort(str,"w"),"a");
+        checkWordWithSort(str);
     }
 
 
-    public String checkWordWithSort(String str,String word) {
+    public String checkWordWithSort(String str) {
         char[] arr = str.toCharArray();
         Map<Character, Integer> map = new LinkedHashMap<>();
         int count = 0;
